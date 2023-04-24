@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +29,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('me', [AuthController::class, 'me']);
+
 Route::get('users',[UserController::class, 'getAllUsers']);
 Route::post('users',[UserController::class, 'createUser']);
+//Route::get('auth',[AuthController::class, 'refresh']);
 
-
+Route::get('projects',[ProjectsController::class, 'createProject']);
+Route::post('projects',[ProjectsController::class, 'getAllProjects']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
