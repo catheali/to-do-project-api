@@ -18,6 +18,7 @@ class ProjectsController extends Controller
     public function createProject(Request $request)
     {
         $project = new Projects;
+        $project->title = $request->title;
         $project->content = $request->content;
         $project->status = $request->status;
         $project->due_time = $request->due_time;
@@ -45,6 +46,7 @@ class ProjectsController extends Controller
     {
         if(Projects::where('id', $id)->exists()){
             $project = Projects::find($id);
+            $project->title = is_null($request->title) ? $project->title : $request->title;
             $project->content = is_null($request->content) ? $project->content : $request->content;
             $project->status =  is_null($request->status) ? $project->status : $request->status;
             $project->due_time =  is_null($request->due_time) ? $project->due_time : $request->due_time;
