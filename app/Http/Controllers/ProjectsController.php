@@ -10,7 +10,9 @@ class ProjectsController extends Controller
     //
     public function getAllProjects( )
     {
-        $projects = Projects::get()->toJson(JSON_PRETTY_PRINT);
+        $projects = Projects::join('users', 'users.id', '=', 'projects.user_id')
+        ->select('projects.*' , 'users.name')
+        ->get()->toJson(JSON_PRETTY_PRINT);
         return response($projects, 200);
     }
 

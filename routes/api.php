@@ -34,8 +34,8 @@ Route::get('users',[UserController::class, 'getAllUsers']);
 Route::post('users',[UserController::class, 'createUser']);
 //Route::get('auth',[AuthController::class, 'refresh']);
 
-Route::get('projects',[ProjectsController::class, 'createProject']);
-Route::post('projects',[ProjectsController::class, 'getAllProjects']);
+Route::post('projects',[ProjectsController::class, 'createProject']);
+Route::get('projects',[ProjectsController::class, 'getAllProjects']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
