@@ -36,7 +36,7 @@ Route::post('users',[UserController::class, 'createUser']);
 
 Route::post('projects',[ProjectsController::class, 'createProject']);
 Route::get('projects',[ProjectsController::class, 'getAllProjects']);
-
+Route::get('projects/{id}',[ProjectsController::class, 'getMyProjects']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

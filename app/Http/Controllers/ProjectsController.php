@@ -36,7 +36,10 @@ class ProjectsController extends Controller
     public function getMyProjects($id)
     {
         if(Projects::where('user_id', $id)->exists()){
-            $myprojects = Projects::where('user_id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+            $myprojects = Projects::where('user_id', $id)
+            ->join('users', 'users.id', '=', 'projects.user_id')
+            ->select('projects.*' , 'users.name')
+            ->get()->toJson(JSON_PRETTY_PRINT);
             return response($myprojects, 200);
         }else {
             return response()->json([
