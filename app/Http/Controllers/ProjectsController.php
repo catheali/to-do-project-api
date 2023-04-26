@@ -66,10 +66,10 @@ class ProjectsController extends Controller
             ], 404);
         }
     }
-    public function deleteProject($id)
+    public function deleteProject($idPost)
     {
-        if(Projects::where('id', $id)){
-            $project = Projects::find($id);
+        if(Projects::where('id', $idPost)){
+            $project = Projects::find($idPost);
             $project->delete();
 
             return response()->json([
