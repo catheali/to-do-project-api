@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -37,6 +38,9 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'created_at',
+        'updated_at',
+        'email_verified_at'
     ];
 
     /**
@@ -68,8 +72,13 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function projects()
-    {
-        return $this->hasMany(Projects::class);
-    }
+   /**
+    * Get all of the projects for the User
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function projects(): HasMany
+   {
+       return $this->hasMany(Comment::class, 'user_id', 'id');
+   }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Projects;
 use Illuminate\Http\Request;
 
+
 class ProjectsController extends Controller
 {
     //
@@ -14,6 +15,10 @@ class ProjectsController extends Controller
         ->select('projects.*' , 'users.name')
         ->get()->toJson(JSON_PRETTY_PRINT);
         return response($projects, 200);
+
+        // $users = Projects::whereHas('user')->with('user')->get();
+        // $projects = $users->toJson(JSON_PRETTY_PRINT);
+        // return response($projects,200);
     }
 
 
@@ -40,6 +45,8 @@ class ProjectsController extends Controller
             ->join('users', 'users.id', '=', 'projects.user_id')
             ->select('projects.*' , 'users.name')
             ->get()->toJson(JSON_PRETTY_PRINT);
+
+
             return response($myprojects, 200);
         }else {
             return response()->json([
@@ -81,5 +88,8 @@ class ProjectsController extends Controller
             ], 404);
         }
     }
+
+
+
 
 }

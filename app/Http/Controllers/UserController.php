@@ -87,5 +87,13 @@ class UserController extends Controller
         }
     }
 
+    public function updatePassword( Request $request, $id)
+    {
+        if(!auth()->user()){
+            return  response()->json(['error' => 'Não autorizado.']);
+        }else{
+            return response()->json(['success'=> 'uepa, deu certo']);
+        }
+    }
 
 }

@@ -36,6 +36,9 @@ Route::post('users',[UserController::class, 'createUser']);
 
 Route::post('projects',[ProjectsController::class, 'createProject']);
 Route::get('projects',[ProjectsController::class, 'getAllProjects']);
+
+
+
 Route::get('projects/{id}',[ProjectsController::class, 'getMyProjects']);
 Route::post('projects/{post}',[ProjectsController::class,'updateProject']);
 Route::delete('projects/{idPost}',[ProjectsController::class,'deleteProject']);
