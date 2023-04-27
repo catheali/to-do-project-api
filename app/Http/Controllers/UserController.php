@@ -50,15 +50,17 @@ class UserController extends Controller
     {
         if(User::where('id', $id)->exists()){
             $user = User::find($id);
-            $user->nome = is_null($request->nome) ? $user->nome : $request->nome;
-            $user->email = is_null($request->email) ? $user->email : $request->email;
+            $user->name = is_null($request->name) ? $user->name : $request->name;
+           // $user->email = is_null($request->email) ? $user->email : $request->email;
             $user->role =  is_null($request->role) ? $user->role : $request->role;
 
             if($request->image){
+             if($user->image !== null){
               if(Storage::exists($user->image)) {
                 Storage::delete($user->image);
               }
-              $user->image = is_null($request->image) ? $user->image : $request->image;
+            }
+              $user->image = is_null($request->image) ? $user->image : $request->image->store('users','public');
             }
 
             $user->save();

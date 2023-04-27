@@ -32,6 +32,7 @@ Route::get('me', [AuthController::class, 'me']);
 
 Route::get('users',[UserController::class, 'getAllUsers']);
 Route::post('users',[UserController::class, 'createUser']);
+Route::post('user/{id}',[UserController::class, 'updateUser']);
 //Route::get('auth',[AuthController::class, 'refresh']);
 
 Route::post('projects',[ProjectsController::class, 'createProject']);
