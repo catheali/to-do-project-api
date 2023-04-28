@@ -56,8 +56,8 @@ class UserController extends Controller
 
             if($request->image){
              if($user->image !== null){
-              if(Storage::exists($user->image)) {
-                Storage::delete($user->image);
+              if(Storage::disk('public')->exists($user->image)) {
+                Storage::disk('public')->delete([$user->image]);
               }
             }
               $user->image = is_null($request->image) ? $user->image : $request->image->store('users','public');
