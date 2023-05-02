@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\AuthController;
 
 class UserController extends Controller
 {
@@ -92,6 +92,12 @@ class UserController extends Controller
 
     public function resetPassword( Request $request, $id)
     {
+
+        // $token = $request->header('Authorization');
+        // $token = substr($token, 7);
+
+        $token = $request ->bearerToken();
+
         $credentials = [
             'email'=>$request['email'],
          'password'=>$request['password']
@@ -99,15 +105,20 @@ class UserController extends Controller
             if (!auth('api')->attempt($credentials)) {
                 return response()->json(['error' => 'Senha antiga incorreta, verifique e tente novamente.'], 401);
             }
-            else{
+          else{
+           // if($token = auth('api')->attempt($credentials)){
+
+
                 if(User::where('id', $id)->exists()){
-               $user = User::find($id);
-               $user->password = Hash::make($request->newPassword);
-               $user->save();
-                 return response()->json(['success'=> 'Senha alterada com sucesso'], 200);
-                }
-               return response()->json(['erro'=> 'algo n deu certo']);
+                    $user = User::find($id);
+                    $user->password = Hash::make($request->newPassword);
+                    $user->save();
+                      return response()->json(['success'=> 'Senha alterada com sucesso'], 200);
+                     }
             }
+
+               return response()->json(['erro'=> 'algo n deu certo']);
+
     }
 
 }
