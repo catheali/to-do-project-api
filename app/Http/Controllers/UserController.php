@@ -108,7 +108,7 @@ class UserController extends Controller
         $tokenId = $auth->me($token)->getData()->id;
         $id = intval($id);
 
-        if ($id == $tokenId){
+        if ($id === $tokenId){
 
                 if(User::where('id', $id)->exists()){
                 $user = User::find($id);
