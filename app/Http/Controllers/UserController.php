@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 
+
 class UserController extends Controller
 {
+
     public function getAllUsers( )
     {
         $users = User::get()->toJson(JSON_PRETTY_PRINT);
@@ -90,35 +92,33 @@ class UserController extends Controller
         }
     }
 
-    public function resetPassword( Request $request, $id)
+    public function resetPassword( Request $request, AuthController $auth , $id)
     {
-
-        // $token = $request->header('Authorization');
-        // $token = substr($token, 7);
-
         $token = $request ->bearerToken();
 
         $credentials = [
             'email'=>$request['email'],
          'password'=>$request['password']
         ];
-            if (!auth('api')->attempt($credentials)) {
-                return response()->json(['error' => 'Senha antiga incorreta, verifique e tente novamente.'], 401);
-            }
-          else{
-           // if($token = auth('api')->attempt($credentials)){
 
+        if (!auth('api')->attempt($credentials)) {
+            return response()->json(['error' => 'Senha incorreta, verifique e tente novamente.'], 401);
+        }
+
+        $tokenId = $auth->me($token)->getData()->id;
+        $id = intval($id);
+
+        if ($id == $tokenId){
 
                 if(User::where('id', $id)->exists()){
-                    $user = User::find($id);
-                    $user->password = Hash::make($request->newPassword);
-                    $user->save();
-                      return response()->json(['success'=> 'Senha alterada com sucesso'], 200);
-                     }
-            }
-
-               return response()->json(['erro'=> 'algo n deu certo']);
-
+                $user = User::find($id);
+                $user->password = Hash::make($request->newPassword);
+                $user->save();
+                    return response()->json(['success'=> 'Senha alterada com sucesso'], 200);
+                    }
+        }else {
+         return response()->json(['Unauthorized'=> 'Access Denied'],401);
+        }
     }
 
 }
