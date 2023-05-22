@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
+use App\Model\Projects;
 
 
 class UserController extends Controller
@@ -76,26 +78,11 @@ class UserController extends Controller
             ], 404);
         }
     }
-    public function deleteUser($id)
-    {
-        if(User::where('id', $id)){
-            $user = User::find($id);
-            $user->delete();
 
-            return response()->json([
-                "message"=> "User excluido com sucesso"
-            ], 202);
-        } else {
-            return response()->json([
-                "message" => "User não encontrado"
-            ], 404);
-        }
-    }
-
-    public function resetPassword( Request $request, AuthController $auth , $id)
+    public function resetPassword( Request $request, AuthController $auth, $id)
     {
         $token = $request ->bearerToken();
-
+        $tokenId = $auth->me($token)->getData()->id;
         $credentials = [
             'email'=>$request['email'],
          'password'=>$request['password']
@@ -105,10 +92,7 @@ class UserController extends Controller
             return response()->json(['error' => 'Senha incorreta, verifique e tente novamente.'], 401);
         }
 
-        $tokenId = $auth->me($token)->getData()->id;
-        $id = intval($id);
-
-        if ($id === $tokenId){
+        if($tokenId == $id){
 
                 if(User::where('id', $id)->exists()){
                 $user = User::find($id);
@@ -116,9 +100,47 @@ class UserController extends Controller
                 $user->save();
                     return response()->json(['success'=> 'Senha alterada com sucesso'], 200);
                     }
-        }else {
-         return response()->json(['Unauthorized'=> 'Access Denied'],401);
         }
-    }
+
+        }
+
+        public function deleteUser(Request $request, AuthController $auth,$id)
+        {
+            $token = $request ->bearerToken();
+            $tokenId = json_decode($auth->me($token)->getContent(),true);
+            $data = json_decode($request->getContent(),true);
+            $credentials = [
+                'email'=>$data['email'],
+             'password'=>$data['password']
+            ];
+            if (!auth('api')->attempt($credentials)) {
+                return response()->json(['error' => 'Senha incorreta, verifique e tente novamente.'], 401);
+            }
+
+            if(User::where('id', $id)->exists()){
+                $user = User::find($id);
+                if($user->image !== null){
+                    if(Storage::disk('public')->exists($user->image)) {
+                      Storage::disk('public')->delete([$user->image]);
+                    }
+                  }
+                // if (Projects::where('user_id', $id)->exists()){
+                //      Projects::where('user_id', $id)->delete();
+                //    }
+
+                $user->delete();
+                return response()->json([
+                    "message"=> "User excluido com sucesso"
+                ], 202);
+            } else {
+                // return response()->json([
+                //     "message" => "User não encontrado"
+                // ], 404);
+
+                dd(User::where('id', $tokenId)->exists());
+            }
+
+        }
+
 
 }

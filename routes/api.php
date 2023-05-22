@@ -34,16 +34,18 @@ Route::get('users',[UserController::class, 'getAllUsers']);
 Route::post('users',[UserController::class, 'createUser']);
 Route::post('user/{id}',[UserController::class, 'updateUser']);
 Route::post('user/resetpassword/{id}',[UserController::class, 'resetPassword']);
+Route::delete('user/delete/{id}',[UserController::class, 'deleteUser']);
+
 //Route::get('auth',[AuthController::class, 'refresh']);
 
 Route::post('projects',[ProjectsController::class, 'createProject']);
 Route::get('projects',[ProjectsController::class, 'getAllProjects']);
 
-
-
 Route::get('projects/{id}',[ProjectsController::class, 'getMyProjects']);
 Route::post('projects/{post}',[ProjectsController::class,'updateProject']);
 Route::delete('projects/{idPost}',[ProjectsController::class,'deleteProject']);
+
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
