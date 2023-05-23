@@ -13,8 +13,14 @@ class ProjectsController extends Controller
     {
         $projects = Projects::join('users', 'users.id', '=', 'projects.user_id')
         ->select('projects.*' , 'users.name')
-        ->get()->toJson(JSON_PRETTY_PRINT);
-        return response($projects, 200);
+        ->get();
+         if (count($projects) > 0) {
+            $projects->toJson(JSON_PRETTY_PRINT);
+            return response($projects, 200);
+         }
+         return response()->json([
+            "message" => "Projects not found"
+        ],404);
 
         // $users = Projects::whereHas('user')->with('user')->get();
         // $projects = $users->toJson(JSON_PRETTY_PRINT);
@@ -65,7 +71,7 @@ class ProjectsController extends Controller
             $project->user_id = is_null($request->user_id) ? $project->user_id : $request->user_id;
             $project->save();
             return response()->json([
-                "message" => "Updated success!"
+                "message" => "The project id: ".$id." was successfully updated."
             ], 200);
         } else {
             return response()->json([
@@ -80,7 +86,7 @@ class ProjectsController extends Controller
             $project->delete();
 
             return response()->json([
-                "message"=> "Project successfully deleted"
+                "message"=> "Project id: ".$idPost." successfully deleted"
             ], 202);
         } else {
             return response()->json([
@@ -88,8 +94,5 @@ class ProjectsController extends Controller
             ], 404);
         }
     }
-
-
-
 
 }

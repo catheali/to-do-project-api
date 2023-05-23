@@ -16,8 +16,16 @@ class UserController extends Controller
 
     public function getAllUsers( )
     {
-        $users = User::get()->toJson(JSON_PRETTY_PRINT);
-        return response($users, 200);
+        $users = User::get();
+
+        if (count($users) > 0) {
+            $users->toJson(JSON_PRETTY_PRINT);
+            return response($users, 200);
+         }
+         return response()->json([
+            "message" => "Users not found"
+        ],404);
+
     }
 
     public function createUser(Request $request)
@@ -104,10 +112,11 @@ class UserController extends Controller
 
         }
 
-        public function deleteUser(Request $request, AuthController $auth,$id)
+        public function deleteUser(Request $request,$id)
         {
-            $token = $request ->bearerToken();
-            $tokenId = json_decode($auth->me($token)->getContent(),true);
+            // AuthController $auth
+           // $token = $request ->bearerToken();
+           // $tokenId = json_decode($auth->me($token)->getContent(),true);
             $data = json_decode($request->getContent(),true);
             $credentials = [
                 'email'=>$data['email'],
@@ -132,13 +141,15 @@ class UserController extends Controller
                 return response()->json([
                     "message"=> "User excluido com sucesso"
                 ], 202);
-            } else {
-                // return response()->json([
-                //     "message" => "User não encontrado"
-                // ], 404);
-
-                dd(User::where('id', $tokenId)->exists());
             }
+
+            // else {
+            //     // return response()->json([
+            //     //     "message" => "User não encontrado"
+            //     // ], 404);
+
+            //     dd(User::where('id', $tokenId)->exists());
+            // }
 
         }
 
