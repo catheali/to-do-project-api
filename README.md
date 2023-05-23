@@ -1,70 +1,296 @@
-#TESTE API COM AUTENTICAÇÃO 
-https://www.youtube.com/watch?v=QgBqhxb-SkY
+# API Laravel - Projeto To-Do
+
+Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você encontrará informações detalhadas sobre os endpoints disponíveis, suas funcionalidades e os parâmetros necessários para fazer solicitações.
+
+- ## Autenticação
+
+    Algumas rotas da API, exceto a rota de autenticação, listagem de usuario e listagem de projetos, exigem autenticação utilizando um token JWT válido. Certifique-se de incluir o token de autenticação no cabeçalho `Authorization` em nessas solicitações.
+
+    - ### Rota de Autenticação
+
+        **Endpoint:** `/api/login`
+
+        **Método:** POST
+
+        **Parâmetros:**
+
+        | Parâmetro  | Tipo   | Descrição        |
+        |------------|--------|------------------|
+        | email      | string | O e-mail do usuário. |
+        | password   | string | A senha do usuário. |
+
+        **Resposta de Sucesso:**
+
+        ```json
+        {
+            "access_token": "seu_token_jwt",
+            "token_type": "bearer",
+            "expires_in": 3600
+        }
+        ```
+
+        **Resposta de Erro:**
+
+        ```json
+        {
+            "error": "Não foi possivel fazer o login, cheque seu email e senha."
+        }
+        ```
+
+- ## Endpoints Disponíveis
+
+    Aqui estão os endpoints disponíveis para gerenciamento de projetos e usuários.
+
+    - ### Projetos (Projects)
+
+        - #### Listar todas os Projetos
+
+            **Não necessita Token**
+
+            **Endpoint:** `/api/projects`
+
+            **Método:** GET
+
+            **Resposta de Sucesso:**
+
+            ```json
+            {
+                [
+                    {
+                        "id": 1,
+                        "user_id": 3,
+                        "title": "Olá Mundo",
+                        "content": "Olá mundo olá mundo 
+                        olá mundo olá mundo olá mundo
+                        olá mundo",
+                        "status": "complete",
+                        "due_time": "2023-05-23",
+                        "name": "Maria Doe"
+                    },
+                    {
+                        "id": 2,
+                        "user_id": 1,
+                        "title": "Hello Word",
+                        "content": "Hello world hello world
+                         hello world hello world hello world",
+                        "status": "ongoing",
+                        "due_time": "2023-05-24",
+                        "name": "John Doe"
+                    }
+                ]
+            }
+            ```
+
+        - #### Criar um novo Projeto
+
+            **Endpoint:** `/api/projects`
+
+            **Método:** POST
+
+            **Parâmetros:**
+
+            | Parâmetro     | Tipo    | Descrição                |
+            |---------------|---------|--------------------------|
+            | id            | integer | O ID do projeto a ser atualizado. |
+            | title         | string  | O novo título do projeto. |
+            | description| string  | A nova descrição do projeto. |
+            | status     | string | Indica se o projeto está Complete, On Going ou Overdue. |
+
+            **Resposta de Sucesso:**
+
+            ```json
+                {
+                    "message": "Project successfully created"
+                
+                 }
+            ```
+
+        - #### Atualizar uma Tarefa existente
+
+            **Endpoint:** `/api/project/{id}`
+
+            **Método:** PUT
+
+            **Parâmetros:**
+
+            | Parâmetro     | Tipo    | Descrição                |
+            |---------------|---------|--------------------------|
+            | id            | integer | O ID do projeto a ser atualizado. |
+            | title         | string  | O novo título do projeto. |
+            | description| string  | A nova descrição do projeto. |
+            | status     | string | Indica se o projeto está Complete, On Going ou Overdue. |
+
+            **Resposta de Sucesso:**
+
+            ```json
+                {
+                    "message": "The project id: 1 was successfully updated."
+                }
+            ```
+
+        - #### Excluir uma Tarefa
+
+            **Endpoint:** `/api/project/{id}`
+
+            **Método:** DELETE
+
+            **Parâmetros:**
+
+            | Parâmetro     | Tipo    | Descrição                |
+            |---------------|---------|--------------------------|
+            | id            | integer | O ID da tarefa a ser excluída. |
+
+            **Resposta de Sucesso:**
+
+            ```json
+            {
+                "message": "Project  id: 1 successfully deleted."
+            }
+            ```
+
+    - ### Usuários (Users)
+
+        - #### Listagem de Usuários
+
+            **Não necessita Token**
+
+            **Endpoint:** `/api/users`
+
+            **Método:** POST
+
+            **Parâmetros:**
+
+            | Parâmetro  | Tipo   | Descrição                |
+            |------------|--------|--------------------------|
+            | name       | string | O nome do usuário.       |
+            | email      | string | O e-mail do usuário.     |
+            | password   | string | A senha do usuário.      |
+
+            **Resposta de Sucesso:**
+
+            ```json
+            {
+                {
+                    "id": 1,
+                    "name": "João Doe",
+                    "role": "Soldier",
+                    "image": "users/QRKvlkas6W4wxFfRUM7A5gXW7oUHITwpGcSQeQOF.jpg",
+                    "email": "johndoe@example.com"
+                },
+                {
+                    "id": 2,
+                    "name": "Maria Doe",
+                    "role": "Poet",
+                    "image": "users/QRKvlkas6W4wxFfRUM7A5gXW7oUHITwpGcSQeQOF.jpg",
+                    "email": "maria@example.com"
+                },
+                {
+                    "id": 2,
+                    "name": "José Doe",
+                    "role": "King",
+                    "image": "users/QRKvlkas6W4wxFfRUM7A5gXW7oUHITwpGcSQeQOF.jpg",
+                    "email": "zedoe@example.com"
+                }
+            }
+            ```
+
+        - ### Criar um novo Usuário
+
+            **Não necessita Token**
+
+            **Endpoint:** `/api/users`
+
+            **Método:** POST
+
+            **Parâmetros:**
+
+            | Parâmetro  | Tipo    | Descrição            |
+            |------------|---------|----------------------|
+            | id         | integer | O ID do usuário      |
+            | name       | string  | O nome do usuário.   |
+            | role       | string  | O cargo do usuário   |
+            | image      |  file   | O avatar do usuário. |
+            | email      | string  | O e-mail do usuário. |
+            | password   | string  | A senha do usuário.  |
+
+            **Resposta de Sucesso:**
+
+            ```json
+                {
+                    "message": "User criado com sucesso"
+                }
+            
+            ```
+
+        - ### Atualizar um Usuário existente
+
+            **Endpoint:** `/api/users/{id}`
+
+            **Método:** PUT
+
+            **Parâmetros:**
+
+            | Parâmetro  | Tipo    | Descrição                |
+            |------------|---------|--------------------------|
+            | id         | integer | O ID do usuário a ser atualizado. |
+            | name       | string  | O novo nome do usuário.   |
+            | role       | string  | O novo cargo do usuário   |
+            | image      |  file   | O novo avatar do usuário. |
+            | email      | string  | O novo e-mail do usuário. |
+            | password   | string  | A senha do usuário para autorização  |
+
+            **Resposta de Sucesso:**
+
+            ```json
+            {
+                "message":"User atualizado com sucesso"
+            }
+            ```
+        - #### Atualizar a senha de um Usuário
+
+            **Endpoint:** `/api/user/resetpassword/{id}`
+
+            **Método:** PUT
+
+            **Parâmetros:**
+
+            | Parâmetro  | Tipo    | Descrição                |
+            |------------|---------|--------------------------|
+            | id         | integer | O ID do usuário a ser excluído. |
+            | password       | varchar | O ID do usuário a ser excluído. |
+
+            **Resposta de Sucesso:**
+
+            ```json
+            {
+                "message": "Senha alterada com sucesso."
+            }
+            ```
 
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+        - #### Excluir um Usuário
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+            **Endpoint:** `/api/user/delete/{id}`
 
-## About Laravel
+            **Método:** DELETE
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+            **Parâmetros:**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+            | Parâmetro  | Tipo    | Descrição                |
+            |------------|---------|--------------------------|
+            | id         | integer | O ID do usuário a ser excluído. |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+            **Resposta de Sucesso:**
 
-## Learning Laravel
+            ```json
+            {
+                "message": "Usuário excluído com sucesso."
+            }
+            ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Considerações Finais
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Esta foi uma visão geral dos endpoints disponíveis na API Laravel do projeto To-Do List. Sinta-se à vontade para explorar e testar cada um deles para aproveitar ao máximo a aplicação.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Se tiver alguma dúvida, sugestão ou precisar de mais informações, não hesite em entrar em contato. Agradeço seu interesse no projeto To-Do List e espero que essa documentação seja útil para o seu desenvolvimento. Pretendo atualizar e melhorar constantemente.
+ 🚀✨
