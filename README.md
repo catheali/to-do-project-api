@@ -1,12 +1,37 @@
-# API Laravel - Projeto To-Do
+# API Laravel - Projeto To-Do ✨
 
 Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você encontrará informações detalhadas sobre os endpoints disponíveis, suas funcionalidades e os parâmetros necessários para fazer solicitações.
 
-- ## Autenticação
+- ## Visão Geral ✨
 
+	O projeto Vue To-Do List é uma aplicação web simples para gerenciamento de tarefas. Com essa aplicação, os usuários podem criar, visualizar, atualizar e excluir suas tarefas diárias de maneira fácil e intuitiva. 
+
+	- #### Certifique-se que seu computador tem os softwares:
+		- PHP - 8.1 ^
+        - Composer
+        - MySQL  ou MariaDB
+		- Editor de texto ( por exemplo VS code)
+		- PostMan ou Insomnia
+	
+- ## Tecnologias Utilizadas ✨
+	- Laravel: é um framework PHP gratuito e de código aberto, utilizado no desenvolvimento de sistemas web.
+
+- ## Instalação e Execução ✨
+
+    1. Clone o repositório para o seu ambiente local.
+    2. Na pasta raiz do projeto execute o comando `composer install ` para instalar as dependências.
+    3. Configure as credencias do banco de dados da API no arquivo `.env.example`. Retirando '.example'.
+    4. Execute o comando `php artisan migrate` para criação do banco de dados da aplicação.
+    5. Execute o comando `php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"` para configuração do token JWT.
+    6.Após execute `php artisan jwt:secret` para configuração da chave token JWT.
+    7. Execute o comando `npm run serve` para iniciar o servidor de desenvolvimento.
+    8. Acesse a aplicação no navegador através da URL `http://localhost:8000`.
+
+- ## Autenticação ✨
+ 
     Algumas rotas da API, exceto a rota de autenticação, listagem de usuario e listagem de projetos, exigem autenticação utilizando um token JWT válido. Certifique-se de incluir o token de autenticação no cabeçalho `Authorization` em nessas solicitações.
 
-    - ### Rota de Autenticação
+    - ### Rota de Autenticação 💫
 
         **Endpoint:** `/api/login`
 
@@ -37,11 +62,11 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
         }
         ```
 
-- ## Endpoints Disponíveis
+- ## Endpoints Disponíveis ✨
 
     Aqui estão os endpoints disponíveis para gerenciamento de projetos e usuários.
 
-    - ### Projetos (Projects)
+    - ### Projetos (Projects) 💫
 
         - #### Listar todas os Projetos
 
@@ -105,7 +130,7 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
                  }
             ```
 
-        - #### Atualizar uma Tarefa existente
+        - #### Atualizar uma Projeto existente
 
             **Endpoint:** `/api/project/{id}`
 
@@ -128,7 +153,7 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
                 }
             ```
 
-        - #### Excluir uma Tarefa
+        - #### Excluir um Projeto
 
             **Endpoint:** `/api/project/{id}`
 
@@ -148,7 +173,7 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
             }
             ```
 
-    - ### Usuários (Users)
+    - ### Usuários (Users) 💫
 
         - #### Listagem de Usuários
 
@@ -194,7 +219,7 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
             }
             ```
 
-        - ### Criar um novo Usuário
+        - #### Criar um novo Usuário
 
             **Não necessita Token**
 
@@ -222,7 +247,7 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
             
             ```
 
-        - ### Atualizar um Usuário existente
+        - #### Atualizar um Usuário existente
 
             **Endpoint:** `/api/users/{id}`
 
@@ -288,9 +313,8 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
             }
             ```
 
-## Considerações Finais
+## Considerações Finais ✨
 
-Esta foi uma visão geral dos endpoints disponíveis na API Laravel do projeto To-Do List. Sinta-se à vontade para explorar e testar cada um deles para aproveitar ao máximo a aplicação.
-
-Se tiver alguma dúvida, sugestão ou precisar de mais informações, não hesite em entrar em contato. Agradeço seu interesse no projeto To-Do List e espero que essa documentação seja útil para o seu desenvolvimento. Pretendo atualizar e melhorar constantemente.
- 🚀✨
+Esta foi uma visão geral dos endpoints disponíveis na API Laravel do projeto To-Do List. Sinta-se à vontade para explorar e testar cada um deles para aproveitar ao máximo a aplicação. 
+Se tiver alguma dúvida, sugestão ou precisar de mais informações, não hesite em entrar em contato. Agradeço seu interesse no projeto To-Do List e espero que essa documentação seja útil para o seu desenvolvimento. Pretendo atualizar e melhorar constantemente. 
+ Se você gostou do projeto, não esqueça de deixar uma estrela ⭐.
