@@ -55,9 +55,7 @@ class ProjectsController extends Controller
 
             return response($myprojects, 200);
         }else {
-            return response()->json([
-                "message" => "Projects not found"
-            ],404);
+            return response()->json([],200);
         }
     }
     public function updateProject(Request $request, $id)
@@ -81,7 +79,7 @@ class ProjectsController extends Controller
     }
     public function deleteProject($idPost)
     {
-        if(Projects::where('id', $idPost)){
+        if(Projects::where('id', $idPost)->exists()){
             $project = Projects::find($idPost);
             $project->delete();
 
