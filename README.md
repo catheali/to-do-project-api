@@ -1,6 +1,6 @@
 # API Laravel - Projeto To-Do ✨
 
-Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você encontrará informações detalhadas sobre os endpoints disponíveis, suas funcionalidades e os parâmetros necessários para fazer solicitações.
+Bem-vindo à documentação da API Laravel do projeto [To-Do List](https://github.com/catheali/todo-ninja.git) ! Aqui você encontrará informações detalhadas sobre os endpoints disponíveis, suas funcionalidades e os parâmetros necessários para fazer solicitações.
 
 - ## Visão Geral ✨
 
@@ -18,14 +18,14 @@ Bem-vindo à documentação da API Laravel do projeto To-Do List! Aqui você enc
 
 - ## Instalação e Execução ✨
 
-    1. Clone o repositório para o seu ambiente local.
-    2. Na pasta raiz do projeto execute o comando `composer install ` para instalar as dependências.
-    3. Configure as credencias do banco de dados da API no arquivo `.env.example`. Retirando '.example'.
-    4. Execute o comando `php artisan migrate` para criação do banco de dados da aplicação.
-    5. Execute o comando `php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"` para configuração do token JWT.
-    6.Após execute `php artisan jwt:secret` para configuração da chave token JWT.
-    7. Execute o comando `npm run serve` para iniciar o servidor de desenvolvimento.
-    8. Acesse a aplicação no navegador através da URL `http://localhost:8000`.
+1. Clone o repositório para o seu ambiente local.
+2. Na pasta raiz do projeto execute o comando `composer install ` para instalar as dependências.
+3. Configure as credencias do banco de dados da API no arquivo `.env.example`. Retirando '.example'.
+4. Execute o comando `php artisan migrate` para criação do banco de dados da aplicação.
+5. Execute o comando `php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"` para configuração do token JWT.
+6.Após execute `php artisan jwt:secret` para configuração da chave token JWT.
+7. Execute o comando `npm run serve` para iniciar o servidor de desenvolvimento.
+8. Acesse a aplicação no navegador através da URL `http://localhost:8000`.
 
 - ## Autenticação ✨
  
