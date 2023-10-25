@@ -29,7 +29,7 @@ Bem-vindo à documentação da API Laravel do projeto [To-Do List](https://githu
 
 - ## Autenticação ✨
  
-    Algumas rotas da API, exceto a rota de autenticação, listagem de usuario e listagem de projetos, exigem autenticação utilizando um token JWT válido. Certifique-se de incluir o token de autenticação no cabeçalho `Authorization` em nessas solicitações.
+    Algumas rotas da API, exceto a rota de autenticação, listagem de usuario e listagem de projetos, exigem autenticação utilizando um token JWT válido. Certifique-se de incluir o token de autenticação no cabeçalho em `Authorization` nessas solicitações.
 
     - ### Rota de Autenticação 💫
 
